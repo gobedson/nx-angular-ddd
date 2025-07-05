@@ -1,7 +1,8 @@
 import { Component, input, inject, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Contact, CreateProfessionalClient, bicValidator, emailValidator, ibanValidator, phoneValidator, sirenValidator } from '@nx-angular-ddd/client/domain';
+import { Contact, CreateProfessionalClient} from '@nx-angular-ddd/client/domain';
+import {sirenValidator, emailValidator, phoneValidator, bicValidator, ibanValidator} from '@nx-angular-ddd/client/application'
 import { CreateContact } from '../create-contact/create-contact';
 
 @Component({

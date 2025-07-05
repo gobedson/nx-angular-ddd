@@ -1,7 +1,8 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Contact, emailValidator, phoneValidator } from '@nx-angular-ddd/client/domain';
+import { Contact } from '@nx-angular-ddd/client/domain';
+import {emailValidator, phoneValidator} from '@nx-angular-ddd/client/application'
 
 @Component({
   selector: 'nx-angular-ddd-create-contact',

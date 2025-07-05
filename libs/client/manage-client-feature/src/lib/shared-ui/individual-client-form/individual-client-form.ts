@@ -1,7 +1,8 @@
 import { Component, input, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CreateIndividualClient, bicValidator, emailValidator, ibanValidator, phoneValidator } from '@nx-angular-ddd/client/domain';
+import { CreateIndividualClient } from '@nx-angular-ddd/client/domain';
+import { emailValidator, phoneValidator, bicValidator, ibanValidator} from '@nx-angular-ddd/client/application'
 
 @Component({
   selector: 'nx-angular-ddd-individual-client-form',
