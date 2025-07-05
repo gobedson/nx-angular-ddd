@@ -1,0 +1,387 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
+  <!-- Informations bancaires -->
+  <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Informations bancaires</h2>
+    
+    <!-- IBAN -->
+    <div class="mb-4">
+      <label for="iban" class="block text-sm font-medium text-gray-700 mb-1">
+        IBAN
+      </label>
+      <input 
+        type="text" 
+        id="iban" 
+        formControlName="iban"
+        class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+        [ngClass]="{'border-red-300 bg-red-50': iban?.invalid && iban?.touched, 'border-gray-300': !(iban?.invalid && iban?.touched)}"
+        placeholder="FR76 XXXX XXXX XXXX XXXX XXXX XXX"
+      >
+      @if (iban?.invalid && iban?.touched) {
+        <div class="text-red-500 text-sm mt-1">
+          @if (iban?.errors?.['pattern']) {
+            <p>Veuillez entrer un IBAN valide</p>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- BIC -->
+    <div>
+      <label for="bic" class="block text-sm font-medium text-gray-700 mb-1">
+        BIC
+      </label>
+      <input 
+        type="text" 
+        id="bic" 
+        formControlName="bic"
+        class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+        [ngClass]="{'border-red-300 bg-red-50': bic?.invalid && bic?.touched, 'border-gray-300': !(bic?.invalid && bic?.touched)}"
+        placeholder="BNPAFRPPXXX"
+      >
+      @if (bic?.invalid && bic?.touched) {
+        <div class="text-red-500 text-sm mt-1">
+          @if (bic?.errors?.['pattern']) {
+            <p>Veuillez entrer un BIC valide</p>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Informations de l'entreprise -->
+  <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Informations de l'entreprise</h2>
+    
+    <!-- Nom de l'entreprise et numéro de TVA -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div>
+        <label for="companyName" class="block text-sm font-medium text-gray-700 mb-1">
+          Nom de l'entreprise *
+        </label>
+        <input 
+          type="text" 
+          id="companyName" 
+          formControlName="companyName"
+          class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+          [ngClass]="{'border-red-300 bg-red-50': companyName?.invalid && companyName?.touched, 'border-gray-300': !(companyName?.invalid && companyName?.touched)}"
+          placeholder="Entrez le nom de l'entreprise"
+        >
+        @if (companyName?.invalid && companyName?.touched) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (companyName?.errors?.['required']) {
+              <p>Le nom de l'entreprise est requis</p>
+            }
+            @if (companyName?.errors?.['minlength']) {
+              <p>Le nom de l'entreprise doit contenir au moins 2 caractères</p>
+            }
+            @if (companyName?.errors?.['maxlength']) {
+              <p>Le nom de l'entreprise ne peut pas dépasser 100 caractères</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <label for="vatNumber" class="block text-sm font-medium text-gray-700 mb-1">
+          Numéro de TVA *
+        </label>
+        <input 
+          type="text" 
+          id="vatNumber" 
+          formControlName="vatNumber"
+          class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+          [ngClass]="{'border-red-300 bg-red-50': vatNumber?.invalid && vatNumber?.touched, 'border-gray-300': !(vatNumber?.invalid && vatNumber?.touched)}"
+          placeholder="ex: FR12345678901"
+        >
+        @if (vatNumber?.invalid && vatNumber?.touched) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (vatNumber?.errors?.['required']) {
+              <p>Le numéro de TVA est requis</p>
+            }
+            @if (vatNumber?.errors?.['pattern']) {
+              <p>Format invalide (ex: FR12345678901)</p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- SIREN -->
+    <div class="mb-4">
+      <label for="siren" class="block text-sm font-medium text-gray-700 mb-1">
+        Numéro SIREN *
+      </label>
+      <input 
+        type="text" 
+        id="siren" 
+        formControlName="siren"
+        class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+        [ngClass]="{'border-red-300 bg-red-50': siren?.invalid && siren?.touched, 'border-gray-300': !(siren?.invalid && siren?.touched)}"
+        placeholder="9 chiffres"
+        maxlength="9"
+      >
+      @if (siren?.invalid && siren?.touched) {
+        <div class="text-red-500 text-sm mt-1">
+          @if (siren?.errors?.['required']) {
+            <p>Le numéro SIREN est requis</p>
+          }
+          @if (siren?.errors?.['pattern']) {
+            <p>Le SIREN doit contenir exactement 9 chiffres</p>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Email et téléphone -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
+          Email *
+        </label>
+        <input 
+          type="email" 
+          id="email" 
+          formControlName="email"
+          class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+          [ngClass]="{'border-red-300 bg-red-50': email?.invalid && email?.touched, 'border-gray-300': !(email?.invalid && email?.touched)}"
+          placeholder="contact@entreprise.com"
+        >
+        @if (email?.invalid && email?.touched) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (email?.errors?.['required']) {
+              <p>L'email est requis</p>
+            }
+            @if (email?.errors?.['email']) {
+              <p>Veuillez entrer une adresse email valide</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">
+          Téléphone *
+        </label>
+        <input 
+          type="tel" 
+          id="phone" 
+          formControlName="phone"
+          class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+          [ngClass]="{'border-red-300 bg-red-50': phone?.invalid && phone?.touched, 'border-gray-300': !(phone?.invalid && phone?.touched)}"
+          placeholder="01 23 45 67 89"
+        >
+        @if (phone?.invalid && phone?.touched) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (phone?.errors?.['required']) {
+              <p>Le numéro de téléphone est requis</p>
+            }
+            @if (phone?.errors?.['pattern']) {
+              <p>Veuillez entrer un numéro de téléphone français valide</p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Adresse -->
+  <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Adresse</h2>
+    
+    <!-- Rue -->
+    <div class="mb-4">
+      <label for="address" class="block text-sm font-medium text-gray-700 mb-1">
+        Adresse *
+      </label>
+      <input 
+        type="text" 
+        id="address" 
+        formControlName="address"
+        class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+        [ngClass]="{'border-red-300 bg-red-50': address?.invalid && address?.touched, 'border-gray-300': !(address?.invalid && address?.touched)}"
+        placeholder="Numéro et nom de rue"
+      >
+      @if (address?.invalid && address?.touched) {
+        <div class="text-red-500 text-sm mt-1">
+          @if (address?.errors?.['required']) {
+            <p>L'adresse est requise</p>
+          }
+          @if (address?.errors?.['minlength']) {
+            <p>L'adresse doit contenir au moins 5 caractères</p>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Complément d'adresse -->
+    <div class="mb-4">
+      <label for="addressComplement" class="block text-sm font-medium text-gray-700 mb-1">
+        Complément d'adresse
+      </label>
+      <input 
+        type="text" 
+        id="addressComplement" 
+        formControlName="addressComplement"
+        class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+        placeholder="Appartement, bâtiment, étage, etc."
+      >
+    </div>
+
+    <!-- Code postal et ville -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div>
+        <label for="postalCode" class="block text-sm font-medium text-gray-700 mb-1">
+          Code postal *
+        </label>
+        <input 
+          type="text" 
+          id="postalCode" 
+          formControlName="postalCode"
+          class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+          [ngClass]="{'border-red-300 bg-red-50': postalCode?.invalid && postalCode?.touched, 'border-gray-300': !(postalCode?.invalid && postalCode?.touched)}"
+          placeholder="75000"
+        >
+        @if (postalCode?.invalid && postalCode?.touched) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (postalCode?.errors?.['required']) {
+              <p>Le code postal est requis</p>
+            }
+            @if (postalCode?.errors?.['pattern']) {
+              <p>Veuillez entrer un code postal français valide (5 chiffres)</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <label for="city" class="block text-sm font-medium text-gray-700 mb-1">
+          Ville *
+        </label>
+        <input 
+          type="text" 
+          id="city" 
+          formControlName="city"
+          class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+          [ngClass]="{'border-red-300 bg-red-50': city?.invalid && city?.touched, 'border-gray-300': !(city?.invalid && city?.touched)}"
+          placeholder="Paris"
+        >
+        @if (city?.invalid && city?.touched) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (city?.errors?.['required']) {
+              <p>La ville est requise</p>
+            }
+            @if (city?.errors?.['minlength']) {
+              <p>La ville doit contenir au moins 2 caractères</p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Pays -->
+    <div>
+      <label for="country" class="block text-sm font-medium text-gray-700 mb-1">
+        Pays *
+      </label>
+      <div class="relative">
+        <select 
+          id="country" 
+          formControlName="country"
+          class="w-full px-4 py-2 border rounded-md appearance-none bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+          [ngClass]="{'border-red-300 bg-red-50': country?.invalid && country?.touched, 'border-gray-300': !(country?.invalid && country?.touched)}"
+        >
+          @for (countryOption of countries; track countryOption.code) {
+            <option [value]="countryOption.code">{{ countryOption.name }}</option>
+          }
+        </select>
+        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none text-gray-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </div>
+      </div>
+      @if (country?.invalid && country?.touched) {
+        <div class="text-red-500 text-sm mt-1">
+          @if (country?.errors?.['required']) {
+            <p>Le pays est requis</p>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Section Contacts -->
+  <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold text-gray-800">Contacts</h2>
+      <button 
+        type="button"
+        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors flex items-center gap-2"
+        (click)="addNewContact()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+        </svg>
+        Ajouter un contact
+      </button>
+    </div>
+
+    <!-- Liste des contacts existants -->
+    @if (contacts().length > 0) {
+      <div class="mb-4">
+        <h3 class="text-lg font-medium text-gray-700 mb-2">Contacts enregistrés ({{ contacts().length }})</h3>
+        <div class="space-y-3">
+          @for (contact of contacts(); track $index) {
+            <div class="bg-white p-3 border border-gray-200 rounded-md flex justify-between items-center">
+              <div>
+                <div class="font-medium">{{ contact.firstname }} {{ contact.lastname }}</div>
+                <div class="text-sm text-gray-600">{{ contact.role }}</div>
+                <div class="text-sm text-gray-500">{{ contact.email }} | {{ contact.phone }}</div>
+              </div>
+              <button 
+                type="button" 
+                class="text-red-500 hover:text-red-700"
+                (click)="handleDeleteContact($index)">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    } @else if (!showContactForm()) {
+      <div class="text-center py-6 bg-gray-50 border border-gray-200 rounded-md">
+        <p class="text-gray-500">Aucun contact ajouté pour le moment</p>
+        <p class="text-sm text-gray-400 mt-1">Cliquez sur "Ajouter un contact" pour commencer</p>
+      </div>
+    }
+
+    <!-- Formulaire de contact -->
+    @if (showContactForm()) {
+      <nx-angular-ddd-create-contact
+        [index]="contacts().length"
+        [showDeleteButton]="false"
+        (saveContact)="handleSaveContact($event)"
+        (cancelContact)="handleCancelContact()">
+      </nx-angular-ddd-create-contact>
+    }
+  </div>
+
+  <!-- Bouton de soumission -->
+  <div class="flex justify-center">
+    <button 
+      type="submit" 
+      class="px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+      [disabled]="isLoading()">
+      @if (isLoading()) {
+        <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>Création en cours...</span>
+      } @else {
+        <span>Créer le client</span>
+      }
+    </button>
+  </div>
+</form> 

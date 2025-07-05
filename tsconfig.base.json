@@ -14,7 +14,17 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@nx-angular-ddd/client/application": ["libs/client/application/src/index.ts"],
+      "@nx-angular-ddd/client/domain": ["libs/client/domain/src/index.ts"],
+      "@nx-angular-ddd/client/infrastructure": [
+        "libs/client/infrastructure/src/index.ts"
+      ],
+      "@nx-angular-ddd/client/manage-client-feature": [
+        "libs/client/manage-client-feature/src/index.ts"
+      ],
+      "@nx-angular-ddd/document/domain": ["libs/document/domain/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

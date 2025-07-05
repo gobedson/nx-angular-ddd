@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Pour ce projet j'utilise nx , angular 20 , tailwind css et le pattern DDD.
